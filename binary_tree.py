@@ -22,7 +22,6 @@
 
 class Node(object):
     """二叉树节点"""
-
     def __init__(self, elem=-1, left=None, right=None):
         self.elem = elem
         self.left = left
@@ -58,40 +57,44 @@ class Tree(object):
                     queue.append(cur.left)
                     queue.append(cur.right)
 
-    def pre_order(self, root):
+    @staticmethod
+    def pre_order(node):
         """递归实现先序遍历"""
-        if root is None:
+        if node is None:
             return
-        print(root.elem)
-        self.pre_order(root.left)
-        self.pre_order(root.right)
+        print(node.elem)
+        Tree.pre_order(node.left)
+        Tree.pre_order(node.right)
 
-    def in_order(self, root):
+    @staticmethod
+    def in_order(node):
         """递归实现中序遍历"""
-        if root is None:
+        if node is None:
             return
-        self.in_order(root.left)
-        print(root.elem)
-        self.in_order(root.right)
+        Tree.in_order(node.left)
+        print(node.elem)
+        Tree.in_order(node.right)
 
-    def post_order(self, root):
+    @staticmethod
+    def post_order(node):
         """递归实现后续遍历"""
-        if root is None:
+        if node is None:
             return
-        self.post_order(root.left)
-        self.post_order(root.right)
-        print(root.elem)
+        Tree.post_order(node.left)
+        Tree.post_order(node.right)
+        print(node.elem)
 
-    def breadth_travel(self, root):
+    @staticmethod
+    def breadth_travel(node):
         """利用队列实现树的层次遍历"""
-        if root is None:
+        if node is None:
             return
         queue = list()
-        queue.append(root)
+        queue.append(node)
         while queue:
-            node = queue.pop(0)
+            n = queue.pop(0)
             print(node.elem)
-            if node.left is not None:
-                queue.append(node.left)
-            if node.right is not None:
-                queue.append(node.right)
+            if n.left is not None:
+                queue.append(n.left)
+            if n.right is not None:
+                queue.append(n.right)
