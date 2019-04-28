@@ -24,7 +24,7 @@ import time
 problem_size = 10000000
 print("%12s%16s" % ('Problem size', 'Seconds'))
 
-for c in range(5):
+for c in range(10):
     start = time.time()
 
     work = 1

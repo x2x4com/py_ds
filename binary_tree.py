@@ -22,79 +22,139 @@
 
 class Node(object):
     """二叉树节点"""
-    def __init__(self, elem=-1, left=None, right=None):
-        self.elem = elem
+    elem = None
+    left = None
+    right = None
+    is_root = False
+
+    def __init__(self, elem=None, left=None, right=None, root=False):
+        self.elem = str(elem)
         self.left = left
         self.right = right
+        self.is_root = root
+
+    def __str__(self):
+        return self.elem
+
+    def __repr__(self):
+        return '<Node %s @ 0x%016x>' % (self.elem, id(self))
 
 
-class Tree(object):
+class Tree(Node):
     """二叉树"""
 
-    def __init__(self, root=None):
-        self.root = root
+    def __init__(self, root: Node=None):
+        if root is not None:
+            assert type(root) in [str, int], "%s not str or int" % root
+            super().__init__(elem=root, root=True)
 
-    def add(self, elem):
-        """为树添加节点"""
-        node = Node(elem)
+    def __str__(self):
+        # if hasattr(self, 'elem'):
+        if self.elem is not None:
+            return self.elem
+        return self.__repr__()
+
+    def __repr__(self):
+        # if hasattr(self, 'elem'):
+        if self.elem is not None:
+            return '<Tree %s @ 0x%016x>' % (self.elem, id(self))
+        return '<Empty Tree @ 0x%016x>' % id(self)
+
+    def p_add(self, l: list):
+        for _l in l:
+            self.add(_l)
+
+    def add(self, e):
+        """
+        为二叉树添加元素
+
+        :param e: 添加元素
+        :return:
+        """
+        assert type(e) in [str, int], "%s not str or int" % e
+
         # 如果树是空的，则对根节点赋值
-        if self.root is None:
-            self.root = node
-        else:
-            queue = list()
-            queue.append(self.root)
-            while queue:
-                # 弹出队列的第一个元素
-                cur = queue.pop(0)
-                if cur.left is None:
-                    cur.left = node
-                    return
-                elif cur.right is None:
-                    cur.right = node
-                    return
-                else:
-                    # 如果左右子树都不为空，往判断列表加入子树，循环进行子树的判断
-                    queue.append(cur.left)
-                    queue.append(cur.right)
-
-    @staticmethod
-    def pre_order(node):
-        """递归实现先序遍历"""
-        if node is None:
+        if self.elem is None:
+            self.elem = str(e)
+            self.is_root = True
+            # self.left = node.left
+            # self.right = node.right
             return
-        print(node.elem)
-        Tree.pre_order(node.left)
-        Tree.pre_order(node.right)
 
-    @staticmethod
-    def in_order(node):
-        """递归实现中序遍历"""
-        if node is None:
-            return
-        Tree.in_order(node.left)
-        print(node.elem)
-        Tree.in_order(node.right)
-
-    @staticmethod
-    def post_order(node):
-        """递归实现后续遍历"""
-        if node is None:
-            return
-        Tree.post_order(node.left)
-        Tree.post_order(node.right)
-        print(node.elem)
-
-    @staticmethod
-    def breadth_travel(node):
-        """利用队列实现树的层次遍历"""
-        if node is None:
-            return
+        node = Node(e)
         queue = list()
-        queue.append(node)
+        queue.append(self)
         while queue:
-            n = queue.pop(0)
-            print(node.elem)
-            if n.left is not None:
-                queue.append(n.left)
-            if n.right is not None:
-                queue.append(n.right)
+            # print(queue)
+            # 弹出队列的第一个元素
+            c = queue.pop(0)
+            # print('弹出队列的第一个元素, %s' % c.elem)
+            if c.left is None:
+                # print('左节点为空，设置%s' % node)
+                c.left = node
+                return
+            if c.right is None:
+                # print('右节点为空，设置%s' % node)
+                c.right = node
+                return
+            # 如果左右子树都不为空，往判断列表加入子树，循环进行子树的判断
+            queue.append(c.left)
+            queue.append(c.right)
+            # print("左右子树都不为空，将左右节点加入队列, l=%s, r=%s" % (c.left.elem, c.right.elem))
+
+
+def pre_order(node: Node, level=0, d='root'):
+    """递归实现先序遍历"""
+    if node is None:
+        return
+
+    if d == 'left':
+        print('%d - Left: %s' % (level, node.elem))
+    elif d == 'right':
+        print('%d - Right: %s' % (level, node.elem))
+    else:
+        print("ROOT: %s" % node.elem)
+
+    level += 1
+    pre_order(node.left, level, 'left')
+    pre_order(node.right, level, 'right')
+
+
+def in_order(node: Node, level=0, d='root'):
+    """递归实现中序遍历"""
+    if node is None:
+        return
+    level += 1
+    in_order(node.left, level, 'left')
+    if d == 'left':
+        print('%d - Left: %s' % (level, node.elem))
+    elif d == 'right':
+        print('%d - Right: %s' % (level, node.elem))
+    else:
+        print("ROOT: %s" % node.elem)
+    in_order(node.right, level, 'right')
+
+
+def post_order(node):
+    """递归实现后续遍历"""
+    if node is None:
+        return
+    post_order(node.left)
+    post_order(node.right)
+    print(node.elem)
+
+
+def breadth_travel(node):
+    """利用队列实现树的层次遍历"""
+    if node is None:
+        return
+    queue = list()
+    queue.append(node)
+    while queue:
+        n = queue.pop(0)
+        print(node.elem)
+        if n.left is not None:
+            queue.append(n.left)
+        if n.right is not None:
+            queue.append(n.right)
+
