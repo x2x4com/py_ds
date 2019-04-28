@@ -103,58 +103,85 @@ class Tree(Node):
             # print("左右子树都不为空，将左右节点加入队列, l=%s, r=%s" % (c.left.elem, c.right.elem))
 
 
-def pre_order(node: Node, level=0, d='root'):
+def pre_order_recursive(node: Node, level=0, d='root', ret: list=None, silent=True):
     """递归实现先序遍历"""
+    if ret is None:
+        ret = list()
+
     if node is None:
-        return
+        return ret
 
-    if d == 'left':
-        print('%d - Left: %s' % (level, node.elem))
-    elif d == 'right':
-        print('%d - Right: %s' % (level, node.elem))
-    else:
-        print("ROOT: %s" % node.elem)
-
+    ret.append(node.elem)
+    if not silent:
+        if d == 'left':
+            print('%d - Left: %s' % (level, node.elem))
+        elif d == 'right':
+            print('%d - Right: %s' % (level, node.elem))
+        else:
+            print("ROOT: %s" % node.elem)
     level += 1
-    pre_order(node.left, level, 'left')
-    pre_order(node.right, level, 'right')
+    ret = pre_order_recursive(node.left, level, 'left', ret=ret)
+    ret = pre_order_recursive(node.right, level, 'right', ret=ret)
+    return ret
 
 
-def in_order(node: Node, level=0, d='root'):
+def in_order_recursive(node: Node, level=0, d='root', ret: list=None, silent=True):
     """递归实现中序遍历"""
+    if ret is None:
+        ret = list()
+
     if node is None:
-        return
+        return ret
+
     level += 1
-    in_order(node.left, level, 'left')
-    if d == 'left':
-        print('%d - Left: %s' % (level, node.elem))
-    elif d == 'right':
-        print('%d - Right: %s' % (level, node.elem))
-    else:
-        print("ROOT: %s" % node.elem)
-    in_order(node.right, level, 'right')
+    ret = in_order_recursive(node.left, level, 'left', ret=ret)
+    ret.append(node.elem)
+    if not silent:
+        if d == 'left':
+            print('%d - Left: %s' % (level, node.elem))
+        elif d == 'right':
+            print('%d - Right: %s' % (level, node.elem))
+        else:
+            print("ROOT: %s" % node.elem)
+    ret = in_order_recursive(node.right, level, 'right', ret=ret)
+    return ret
 
 
-def post_order(node):
+def post_order_recursive(node: Node, level=0, d='root', ret: list=None, silent=True):
     """递归实现后续遍历"""
+    if ret is None:
+        ret = list()
+
     if node is None:
-        return
-    post_order(node.left)
-    post_order(node.right)
-    print(node.elem)
+        return ret
+
+    level += 1
+    ret = post_order_recursive(node.left, level, 'left', ret=ret)
+    ret = post_order_recursive(node.right, level, 'right', ret=ret)
+    ret.append(node.elem)
+    if not silent:
+        if d == 'left':
+            print('%d - Left: %s' % (level, node.elem))
+        elif d == 'right':
+            print('%d - Right: %s' % (level, node.elem))
+        else:
+            print("ROOT: %s" % node.elem)
+    return ret
 
 
 def breadth_travel(node):
     """利用队列实现树的层次遍历"""
     if node is None:
         return
-    queue = list()
-    queue.append(node)
-    while queue:
-        n = queue.pop(0)
+    q = list()
+    q.append(node)
+    while q:
+        n = q.pop(0)
         print(node.elem)
         if n.left is not None:
-            queue.append(n.left)
+            q.append(n.left)
         if n.right is not None:
-            queue.append(n.right)
+            q.append(n.right)
+
+    return q
 
