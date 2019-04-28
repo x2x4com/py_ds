@@ -148,7 +148,7 @@ def in_order_recursive(node: Node, level=0, d='root', ret: list=None, silent=Tru
 
 
 def post_order_recursive(node: Node, level=0, d='root', ret: list=None, silent=True):
-    """递归实现后续遍历"""
+    """递归实现后序遍历"""
     if ret is None:
         ret = list()
 
