@@ -83,3 +83,5 @@ runtime/
 
 # venv
 venv
+python3_ds
+pypy3_ds
