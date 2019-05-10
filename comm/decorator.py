@@ -24,6 +24,12 @@ from functools import wraps
 
 
 def count_run_time(func):
+    """
+    计时修饰器
+
+    :param func:
+    :return:
+    """
     @wraps(func)
     def _func(*args, **args2):
         _start = time.time()
