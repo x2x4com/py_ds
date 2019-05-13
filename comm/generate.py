@@ -26,7 +26,7 @@ from .decorator import count_run_time
 @count_run_time
 def random_int_array(length: int=0) -> list:
     """
-    生成一个指定或者随机长度的数组，并在内填充不随机的数字
+    生成一个指定或者随机长度的数组，并在内填充不重复的数字
 
     :param length:
     :return:
@@ -54,8 +54,8 @@ def test_for_range(l: int=0) -> (int, int):
     y = 0
     x = 0
     for _i in range(l):
-        x = _i + 1
-        y += _i
+        # y = _i + 1
+        x += _i
     return x, y
 
 
@@ -72,6 +72,6 @@ def test_while(l: int=0) -> (int, int):
     y = 0
     x = 0
     while x < l:
-        y += x
+        # y += x
         x += 1
     return x, y
