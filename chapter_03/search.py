@@ -23,7 +23,7 @@ from comm.decorator import count_run_time
 
 
 @count_run_time
-def index_of_min(lyst: list) -> int:
+def index_of_min(lyst: list):
     """
     3.3.1 搜索最小值
 
