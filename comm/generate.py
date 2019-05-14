@@ -24,24 +24,24 @@ from .decorator import count_run_time
 
 
 @count_run_time
-def random_int_array(length: int=0) -> list:
+def random_int_array(l: int) -> list:
     """
     生成一个指定或者随机长度的数组，并在内填充不重复的数字
 
-    :param length:
+    :param l:
     :return:
     """
-    assert type(length) == int
+    assert type(l) == int
     x = list()
-    if length == 0:
-        length = randint(1000, 2000)
-    # print("Create a list, length = %d" % length)
-    for _i in range(length):
+    if l == 0:
+        l = randint(1000, 2000)
+    # print("Create a list, l = %d" % l)
+    for _i in range(l):
         # print("number %d" % _i)
-        d = randint(1, length*2)
+        d = randint(1, l*2)
         while d in x:
             # print("%d in x" % d)
-            d = randint(1, length*2)
+            d = randint(1, l*2)
         x.append(d)
         # print(x)
     return x
