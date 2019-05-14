@@ -75,7 +75,7 @@ mongodata
 
 # x2x4
 flower.db
-docs
+# docs
 # */migrations/
 db.sqlite3
 static/
