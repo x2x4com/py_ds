@@ -40,7 +40,7 @@ def index_of_min(lyst: list):
 
 
 @count_run_time
-def index_of_max(lyst: list) -> int:
+def index_of_max(lyst: list):
     """
     3.3.1 拓展 搜索最大值
 
@@ -57,7 +57,7 @@ def index_of_max(lyst: list) -> int:
 
 
 @count_run_time
-def sequential_search(t, lyst: list) -> int:
+def sequential_search(t, lyst: list):
     """
     3.3.2 顺序搜索一个列表
 
@@ -74,7 +74,7 @@ def sequential_search(t, lyst: list) -> int:
 
 
 @count_run_time
-def binary_search(t, _list: list) -> int:
+def binary_search(t, _list: list):
     """
     3.3.4 二叉树搜索，要求列表是排序过的
 

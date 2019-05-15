@@ -48,7 +48,7 @@ def random_int_array(l: int) -> list:
 
 
 @count_run_time
-def test_for_range(l: int=0) -> (int, int):
+def test_for_range(l: int=0):
     # if l < 100000:
     #    l = 100000
     y = 0
@@ -60,7 +60,7 @@ def test_for_range(l: int=0) -> (int, int):
 
 
 @count_run_time
-def test_while(l: int=0) -> (int, int):
+def test_while(l: int=0):
     # if l < 100000:
     #     l = 100000
     """
