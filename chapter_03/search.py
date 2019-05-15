@@ -74,37 +74,37 @@ def sequential_search(t, lyst: list):
 
 
 @count_run_time
-def binary_search(t, _list: list):
+def binary_search(t, lyst: list):
     """
     3.3.4 二叉树搜索，要求列表是排序过的
 
     :param t:
-    :param _list:
+    :param lyst:
     :return:
     """
-    print(t >= _list[0])
-    if t < _list[0] or t > _list[-1]:
-        raise ValueError("%d <= t <= %d" % (_list[0], _list[-1]))
+    print(t >= lyst[0])
+    if t < lyst[0] or t > lyst[-1]:
+        raise ValueError("%d <= t <= %d" % (lyst[0], lyst[-1]))
     left = 0
-    right = len(_list) - 1
+    right = len(lyst) - 1
     _count = 1
     print("搜索开始，left = %d, right = %d" % (left, right))
     while left <= right:
         print("第%d次搜索" % _count)
         # 整除
         mid = (left + right) // 2
-        print("中间数为%d，值为%d" % (mid, _list[mid]))
-        if t == _list[mid]:
+        print("中间数为%d，值为%d" % (mid, lyst[mid]))
+        if t == lyst[mid]:
             print("第%d次找到了%d" % (_count, t))
             return mid
-        elif t < _list[mid]:
+        elif t < lyst[mid]:
             right = mid - 1
             print("%d < %d, set right = %d (%d - 1)" % (
-                t, _list[mid], right, mid))
+                t, lyst[mid], right, mid))
         else:
             left = mid + 1
             print("%d > %d, set left = %d (%d + 1)" % (
-                t, _list[mid], left, mid))
+                t, lyst[mid], left, mid))
         _count += 1
-    raise ValueError("_list not sorted")
+    raise ValueError("lyst not sorted")
 
