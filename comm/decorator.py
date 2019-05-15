@@ -31,9 +31,9 @@ def count_run_time(func):
     :return:
     """
     @wraps(func)
-    def _func(*args, **args2):
+    def _func(*args, **kwargs):
         _start = time.time()
-        rt = func(*args, **args2)
+        rt = func(*args, **kwargs)
         print("[func: %s] cost @%.6fs" % (func.__name__, time.time() - _start))
         return rt
     return _func
